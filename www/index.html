@@ -17,33 +17,50 @@
 		* Einheit (edit: view/edit) 
 		-->
 	<div id="overview" data-role="page" data-theme="b">
-		<div id="head" data-role="header">
+		<div id="overview-head" data-role="header">
 			<h1>Übersicht</h1>
-			<a href="#course" class="ui-btn-right" data-transition="none">Kurs</a>
 		</div>
-		<div id="content" data-role="content">
-			<h2>Meine Kurse</h2>
-			<ul id="my-courses" data-role="listview" data-inset="true">
-				<li><a href="#course" data-transition="none">Mathe</a></li>
-				<li><a href="#course" data-transition="none">Deutsch</a></li>
-				<li><a href="#course" data-transition="none">Geschichte</a></li>
-				<li><a href="#course" data-transition="none">Kunst</a></li>
-				<li><a href="#course" data-transition="none">Informatik</a></li>
-			</ul>
-			<a href="#course" data-role="button" data-transition="none">Add</a>
+		<div id="overview-content" data-role="content">
+			<div data-role="collapsible">
+				<h1>Schule</h1>
+				<ul id="my-courses" data-role="listview" data-inset="true">
+					<li><a href="#course" data-transition="none">Mathe</a></li>
+					<li><a href="#course" data-transition="none">Deutsch</a></li>
+					<li><a href="#course" data-transition="none">Geschichte</a></li>
+					<li><a href="#course" data-transition="none">Kunst</a></li>
+					<li><a href="#course" data-transition="none">Informatik</a></li>
+				</ul>
+				<a href="#course" data-role="button" data-transition="none">Add</a>
+			</div>
+			<div data-role="collapsible">
+				<h1>Sport</h1>
+				<ul id="my-courses" data-role="listview" data-inset="true">
+					<li><a href="#course" data-transition="none">Fußball</a></li>
+					<li><a href="#course" data-transition="none">Tanzen</a></li>
+					<li><a href="#course" data-transition="none">Angeln</a></li>
+				</ul>
+				<a href="#course" data-role="button" data-transition="none">Add</a>
+			</div>
+			<div data-role="collapsible">
+				<h1>Musik</h1>
+				<ul id="my-courses" data-role="listview" data-inset="true">
+					<li><a href="#course" data-transition="none">Klavier</a></li>
+					<li><a href="#course" data-transition="none">Gitarre</a></li>
+				</ul>
+				<a href="#course" data-role="button" data-transition="none">Add</a>
+			</div>
 		</div>
 	</div>
 
 	<div id="course" data-role="page" data-theme="b">
-		<div id="head" data-role="header">
+		<div id="course-head" data-role="header">
 			<a href="#overview" data-transition="none">Übersicht</a>
 			<h1>Kurs</h1>
-			<a href="#unit" data-transition="none">Einheit</a>
 		</div>
-		<div id="content" data-role="content">
+		<div id="course-content" data-role="content">
 			<h2>Mathe - Aritmetik</h2>
 			<p>Inhalt: Titel, Zusammenfassung, Einheiten</p>
-			<ul id="my-courses" data-role="listview" data-inset="true">
+			<ul id="course-units" data-role="listview" data-inset="true">
 				<li><a href="#unit" data-transition="none">Addition</a></li>
 				<li><a href="#unit" data-transition="none">Subtraktion</a></li>
 				<li><a href="#unit" data-transition="none">Multiplikation</a></li>
@@ -76,18 +93,18 @@
 	</div>
 
 	<script type="text/javascript">
-	$('#menu_list').children().each(function(){
-	    var anchor = $(this).find('a');
-	    if(anchor)
-	    {
-	        anchor.click(function(){
-	            // save the selected id to the session storage and retrieve it in the next page
-	            sessionStorage.selectedId=anchor.innerHTML;
-	            // perform the transition
-	            changePage('#course');
-	        });
-	    }
-	});		
+		// 	$('#course-units').children().each(function(){
+		// 	    var anchor = $(this).find('a');
+		// 	    if(anchor)
+		// 	    {
+		// 	        anchor.click(function(){
+		// 	            // save the selected id to the session storage and retrieve it in the next page
+		// 	            sessionStorage.selectedId=anchor.innerHTML;
+		// 	            // perform the transition
+		// 	            changePage('#unit');
+		// 	        });
+		// 	    }
+		// 	});
 	</script>
 
 </body>
