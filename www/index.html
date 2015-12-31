@@ -1,27 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <title>Foundation Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.css">
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+<meta charset="UTF-8">
+<title>TALA</title>
+<link rel="stylesheet"
+	href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script
+	src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
 </head>
 <body>
 
-<div style="padding:20px;">
-  <h2>Schule -> (Klasse 7G) -> Mathe -> Lineare Algebra? -> Schriftliche Division</h2>
-  <div class="panel radius">
-    <h3>Schriftliche Division</h3>
-    <p>Some text..</p>
-    <p><iframe width="420" height="315"
-src="http://www.youtube.com/embed/pgojaqdY3fI?autoplay=1">
-</iframe></p>
-http://youtu.be/pgojaqdY3fI
-  </div>
-</div>
+	<!-- 	3 Seiten: 
+		* Kurse (edit: add, delete, edit)
+		* Kurs (edit: view/edit)
+		* Einheit (edit: view/edit) 
+		-->
+	<div id="overview" data-role="page" data-theme="b">
+		<div id="head" data-role="header">
+			<h1>Übersicht</h1>
+			<a href="#course" class="ui-btn-right" data-transition="none">Kurs</a>
+		</div>
+		<div id="content" data-role="content">
+			<p>Liste von Kursen</p>
+		</div>
+	</div>
+
+	<div id="course" data-role="page" data-theme="b">
+		<div id="head" data-role="header">
+			<a href="#overview" data-transition="none">Übersicht</a>
+			<h1>Kurs</h1>
+			<a href="#unit" data-transition="none">Einheit</a>
+		</div>
+		<div id="content" data-role="content">
+			<p>Inhalt: Titel, Zusammenfassung, Einheiten</p>
+		</div>
+	</div>
+
+	<div id="unit" data-role="page" data-theme="b">
+		<div id="head" data-role="header">
+			<a href="#course" class="ui-btn-left" data-transition="none">Kurs</a>
+			<h1>Einheit</h1>
+		</div>
+		<div id="content" data-role="content">
+			<p>Inhalt: Titel, Zusammenfassung, Video, Aufgaben</p>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		
+	</script>
 
 </body>
 </html>
