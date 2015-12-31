@@ -22,30 +22,15 @@
 			<a href="#course" class="ui-btn-right" data-transition="none">Kurs</a>
 		</div>
 		<div id="content" data-role="content">
-			<table data-role="table" class="ui-responsive">
-				<thead>
-					<tr>
-<!-- 						<th>Kurs</th> -->
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>Mathe</td>
-					</tr>
-					<tr>
-						<td>Deutsch</td>
-					</tr>
-					<tr>
-						<td>Geschichte</td>
-					</tr>
-					<tr>
-						<td>Kunst</td>
-					</tr>
-					<tr>
-						<td>Informatik</td>
-					</tr>
-				</tbody>
-			</table>
+			<h2>Meine Kurse</h2>
+			<ul id="my-courses" data-role="listview" data-inset="true">
+				<li><a href="#course" data-transition="none">Mathe</a></li>
+				<li><a href="#course" data-transition="none">Deutsch</a></li>
+				<li><a href="#course" data-transition="none">Geschichte</a></li>
+				<li><a href="#course" data-transition="none">Kunst</a></li>
+				<li><a href="#course" data-transition="none">Informatik</a></li>
+			</ul>
+			<a href="#course" data-role="button" data-transition="none">Add</a>
 		</div>
 	</div>
 
@@ -56,28 +41,15 @@
 			<a href="#unit" data-transition="none">Einheit</a>
 		</div>
 		<div id="content" data-role="content">
+			<h2>Mathe - Aritmetik</h2>
 			<p>Inhalt: Titel, Zusammenfassung, Einheiten</p>
-			<table data-role="table" class="ui-responsive">
-				<thead>
-					<tr>
-<!-- 						<th>Kurs</th> -->
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>Addition</td>
-					</tr>
-					<tr>
-						<td>Subtraktion</td>
-					</tr>
-					<tr>
-						<td>Multiplikation</td>
-					</tr>
-					<tr>
-						<td>Division</td>
-					</tr>
-				</tbody>
-			</table>
+			<ul id="my-courses" data-role="listview" data-inset="true">
+				<li><a href="#unit" data-transition="none">Addition</a></li>
+				<li><a href="#unit" data-transition="none">Subtraktion</a></li>
+				<li><a href="#unit" data-transition="none">Multiplikation</a></li>
+				<li><a href="#unit" data-transition="none">Division</a></li>
+			</ul>
+			<a href="#unit" data-role="button" data-transition="none">Add</a>
 		</div>
 	</div>
 
@@ -87,8 +59,7 @@
 			<h1>Einheit</h1>
 		</div>
 		<div id="content" data-role="content">
-			<h2>Schule -> (Klasse 7G) -> Mathe -> Lineare Algebra? ->
-				Schriftliche Division</h2>
+			<h2>Schriftliche Division</h2>
 			<div class="panel radius">
 				<h3>Schriftliche Division</h3>
 				<p>Some text..</p>
@@ -105,7 +76,18 @@
 	</div>
 
 	<script type="text/javascript">
-		
+	$('#menu_list').children().each(function(){
+	    var anchor = $(this).find('a');
+	    if(anchor)
+	    {
+	        anchor.click(function(){
+	            // save the selected id to the session storage and retrieve it in the next page
+	            sessionStorage.selectedId=anchor.innerHTML;
+	            // perform the transition
+	            changePage('#course');
+	        });
+	    }
+	});		
 	</script>
 
 </body>
