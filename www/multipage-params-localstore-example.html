@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Test MultiPage Params</title>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+</head>
+<body>
+
+<div id="pageone" data-role="page">
+<ul id="menu_list" data-role="listview" data-theme="a">
+   <li><a id="1" href="#pagetwo">Martin</a></li>
+   <li><a id="2" href="#pagetwo">Johnny</a></li>   
+   <li><a id="3" href="#pagetwo">Luke</a></li>
+</ul>
+</div>
+
+<div id="pagetwo" data-role="page">
+		<div id="overview-head" data-role="header">
+			<a href="#pageone">Übersicht</a>
+			<h1>Übersicht</h1>
+		</div>
+	<p id="test">xy</p>
+</div>
+
+<script type="text/javascript">
+
+<!-- when menu-item is clicked ... -->
+$('#menu_list').children().each(function() {
+    var anchor = $(this).find('a');
+    if(anchor) {
+        anchor.click(function() {
+            localStorage.selectedId=anchor.attr('id');
+        });
+    }
+});
+
+<!-- before details page (pagetwo) is shown -->
+$(document).on("pagebeforeshow", "#pagetwo", function () {
+	document.getElementById('test').innerHTML = localStorage.selectedId;
+});
+</script>
+
+</body>
+</html>
