@@ -59,7 +59,7 @@
 		</div>
 		<div id="course-content" data-role="content">
 			<h2 id="course-title">Mathe - Aritmetik</h2>
-			<p>Inhalt: Titel, Zusammenfassung, Einheiten</p>
+			<p id="course-summary">Inhalt: Titel, Zusammenfassung, Einheiten</p>
 			<ul id="course-units" data-role="listview" data-inset="true">
 <!-- 				<li><a href="#unit" data-transition="none" id="Addition">Addition</a></li> -->
 <!-- 				<li><a href="#unit" data-transition="none" id="Subtraktion">Subtraktion</a></li> -->
@@ -73,20 +73,20 @@
 	<div id="unit" data-role="page" data-theme="c">
 		<div id="head" data-role="header">
 			<a href="#course" class="ui-btn-left" data-transition="none">Kurs</a>
-			<h1 id="unit-title">Einheit</h1>
+			<h1 id="unit-title2">Einheit</h1>
 		</div>
 		<div id="content" data-role="content">
-			<h2>Schriftliche Division</h2>
-			<div class="panel radius">
-				<h3>Schriftliche Division</h3>
-				<p>Some text..</p>
+			<h2 id="unit-title">Schriftliche Division</h2>
+<!-- 			<div class="panel radius"> -->
+<!-- 				<h3>Schriftliche Division</h3> -->
+				<p id="unit-summary">Some text..</p>
 				<p>
 <!-- 					<iframe width="420" height="315" -->
 <!-- 						src="http://www.youtube.com/embed/pgojaqdY3fI?autoplay=1"> -->
 <!-- 					</iframe> -->
 				</p>
 				<a href="http://youtu.be/pgojaqdY3fI">Video</a>
-			</div>
+<!-- 			</div> -->
 
 			<p>Inhalt: Titel, Zusammenfassung, Video, Aufgaben</p>
 		</div>
@@ -98,6 +98,7 @@
 		var courses = [
            	{ "id" : "1",
            	  "title" : "Mathe - Aritmetik 2",
+           	  "summary" : "Einführung in Mathe ...",
            	  "reference" : "ma7_kgs_schwarmstedt_2015",
            	  "units" : [
            	 	{ "title" : "Addition",
@@ -114,8 +115,8 @@
            	 	{ "title" : "Division", "summary" : "text"}
            	 	]
            	},
-           	{ "id" : "2", "title" : "Deutsch", "units" : []},
-           	{ "id" : "3", "title" : "Geschichte", "units" : []},
+           	{ "id" : "2", "title" : "Deutsch", "summary" : "Einführung in Deutsch ...", "units" : []},
+           	{ "id" : "3", "title" : "Geschichte", "summary" : "Einführung in Geschichte ...", "units" : []},
            	{ "id" : "4", "title" : "Kunst", "units" : []},
            	{ "id" : "5", "title" : "Einführung Informatik - Strukturen",
            	  "reference" : "in8_g_mellendorf_2014",
@@ -125,9 +126,6 @@
               	 	{ "title" : "Programmieren", "summary" : "text"}
                    ]
            	}];
-
-		
-// 		courses[i].title;
 
 		$(document).on("pagebeforecreate","#overview",function() {
 			for (i=0; i<courses.length; i++) {
@@ -150,6 +148,11 @@
 			}
 
 			document.getElementById('course-title').innerHTML = course.title;
+			if (course.summary) {
+				document.getElementById('course-summary').innerHTML = course.summary;
+			} else {
+				document.getElementById('course-summary').innerHTML = '';
+			}
 			
 			$('#course-units').empty();
 			for (i=0; i<course.units.length; i++) {
@@ -161,6 +164,31 @@
 			$('#course-units').listview("refresh");
 		});
 
+		$(document).on("pagebeforeshow","#unit",function() {
+// 			var unitId = sessionStorage.selectedId;
+// 			var courseId = sessionStorage.selectedCourse;
+// 			var unit = '';
+// 			for (i=0; i<courses.length; i++) {
+// 				if (courses[i].title == courseId.trim()) {
+// 					course = courses[i];
+// 					for (k=0; k<course.units.length; k++) {
+// 						if (course.units[k].title = unitId.trim()) {
+// 							unit = course.units[k];
+// 						}
+// 					}
+// 				}
+// 			}
+// 		// - find unit in course
+// 		// - set title, summary, content	
+// 			document.getElementById('unit-title').innerHTML = unit.title;
+// 			if (unit.summary) {
+// 				document.getElementById('unit-summary').innerHTML = unit.summary;
+// 			} else {
+// 				document.getElementById('unit-summary').innerHTML = '';
+// 			}
+			
+		});
+		
 		<!-- transition from overview to course -->
 		$(document).on("pagebeforeshow","#course",function() {
 			document.getElementById('x').innerHTML = sessionStorage.selectedCourse;
