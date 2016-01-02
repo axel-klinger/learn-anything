@@ -58,13 +58,13 @@
 			<h1 id="x">Kurs</h1>
 		</div>
 		<div id="course-content" data-role="content">
-			<h2>Mathe - Aritmetik</h2>
+			<h2 id="course-title">Mathe - Aritmetik</h2>
 			<p>Inhalt: Titel, Zusammenfassung, Einheiten</p>
 			<ul id="course-units" data-role="listview" data-inset="true">
-				<li><a href="#unit" data-transition="none" id="Addition">Addition</a></li>
-				<li><a href="#unit" data-transition="none" id="Subtraktion">Subtraktion</a></li>
-				<li><a href="#unit" data-transition="none" id="Multiplikation">Multiplikation</a></li>
-				<li><a href="#unit" data-transition="none" id="Division">Division</a></li>
+<!-- 				<li><a href="#unit" data-transition="none" id="Addition">Addition</a></li> -->
+<!-- 				<li><a href="#unit" data-transition="none" id="Subtraktion">Subtraktion</a></li> -->
+<!-- 				<li><a href="#unit" data-transition="none" id="Multiplikation">Multiplikation</a></li> -->
+<!-- 				<li><a href="#unit" data-transition="none" id="Division">Division</a></li> -->
 			</ul>
 			<a href="#unit" data-role="button" data-transition="none">Add</a>
 		</div>
@@ -131,49 +131,42 @@
 
 		$(document).on("pagebeforecreate","#overview",function() {
 			for (i=0; i<courses.length; i++) {
-				$('#my-courses').append('<li><a href="#course" data-transition="none" id="' + courses[i].title + '">' + courses[i].title + '</a></li>'); //.on("click",storeCourseID(courses[i].title));
+				$('#my-courses').append('<li id="' + courses[i].id + '"><a href="#course" data-transition="none" id="' + courses[i].id + '">' + courses[i].title + '</a></li>'); //.on("click",storeCourseID(courses[i].title));
 			}
 			$('#my-courses li').on('click', function() {
+// 				alert('ID = ' + $(this).text() + ' ' + $(this).id);
 				sessionStorage.selectedCourse = $(this).text();
+// 				sessionStorage.selectedCourseId = $(this).id);
 			});
 		});
-		
-// 		$('#my-courses li').on('click', function() {
-// 			alert($(this).text());
-// 		});
-		
-// 		function storeCourseID(id) {
-// 			sessionStorage.selectedId = id;
-// 			alert(id);
-// 		};
-		
-		<!-- transition from overview to course -->
-// 		$('#my-courses').children().each(function() {
-// 			var anchor = $(this).find('a');
-// 			if (anchor) {
-// 				anchor.on("click", function() {
-// // 					storeCourseID(anchor.attr('id'))
-// 					sessionStorage.selectedId = anchor.attr('id');
-// 				});
-// // 				alert(anchor.attr('id'));
-// 			}
-// 		});
 
 		$(document).on("pagebeforeshow","#course",function() {
-// 			alert(sessionStorage.selectedCourse);
+			var courseId = sessionStorage.selectedCourse;
+			var course = '';
+			for (i=0; i<courses.length; i++) {
+				if (courses[i].title == courseId.trim()) {
+					course = courses[i];
+				}
+			}
+
+			document.getElementById('course-title').innerHTML = course.title;
+			
+			$('#course-units').empty();
+			for (i=0; i<course.units.length; i++) {
+				$('#course-units').append('<li><a href="#unit" data-transition="none" id="' + course.units[i].title + '">' + course.units[i].title + '</a></li>'); //.on("click",storeCourseID(courses[i].title));
+			}
+			$('#course-units li').on('click', function() {
+				sessionStorage.selectedId = $(this).text();
+			});
+			$('#course-units').listview("refresh");
+		});
+
+		<!-- transition from overview to course -->
+		$(document).on("pagebeforeshow","#course",function() {
 			document.getElementById('x').innerHTML = sessionStorage.selectedCourse;
 		});
 		
 		<!-- transition from course to unit -->
-		$('#course-units').children().each(function() {
-			var anchor = $(this).find('a');
-			if (anchor) {
-				anchor.click(function() {
-					sessionStorage.selectedId = anchor.attr('id');
-				});
-			}
-		});
-
 		$(document).on("pagebeforeshow","#unit",function() {
 			document.getElementById('unit-title').innerHTML = sessionStorage.selectedId;
 		});

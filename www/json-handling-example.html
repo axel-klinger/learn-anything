@@ -43,9 +43,14 @@ var courses = [
 	function fillValue() {
 		var text = "";
 		for (i=0; i<courses.length; i++) {
-
+			if (courses[i].id == 1) {
+				alert(courses[i].title);
+			}
 		}
 		document.getElementById('test').innerHTML = courses.length;
+		
+		// find course 1 title
+		
 	}
 
 </script>
