@@ -16,7 +16,7 @@
 		* Kurs (edit: view/edit)
 		* Einheit (edit: view/edit) 
 		-->
-	<div id="overview" data-role="page" data-theme="b">
+	<div id="overview" data-role="page" data-theme="c">
 		<div id="overview-head" data-role="header">
 			<h1>Übersicht</h1>
 		</div>
@@ -24,17 +24,17 @@
 			<div data-role="collapsible">
 				<h1>Schule</h1>
 				<ul id="my-courses" data-role="listview" data-inset="true">
-					<li><a href="#course" data-transition="none">Mathe</a></li>
-					<li><a href="#course" data-transition="none">Deutsch</a></li>
-					<li><a href="#course" data-transition="none">Geschichte</a></li>
-					<li><a href="#course" data-transition="none">Kunst</a></li>
-					<li><a href="#course" data-transition="none">Informatik</a></li>
+<!-- 					<li><a href="#course" data-transition="none" id="Mathe">Mathe</a></li> -->
+<!-- 					<li><a href="#course" data-transition="none" id="Deutsch">Deutsch</a></li> -->
+<!-- 					<li><a href="#course" data-transition="none" id="Geschichte">Geschichte</a></li> -->
+<!-- 					<li><a href="#course" data-transition="none" id="Kunst">Kunst</a></li> -->
+<!-- 					<li><a href="#course" data-transition="none" id="Informatik">Informatik</a></li> -->
 				</ul>
 				<a href="#course" data-role="button" data-transition="none">Add</a>
 			</div>
 			<div data-role="collapsible">
 				<h1>Sport</h1>
-				<ul id="my-courses" data-role="listview" data-inset="true">
+				<ul id="my-courses-sport" data-role="listview" data-inset="true">
 					<li><a href="#course" data-transition="none">Fußball</a></li>
 					<li><a href="#course" data-transition="none">Tanzen</a></li>
 					<li><a href="#course" data-transition="none">Angeln</a></li>
@@ -43,7 +43,7 @@
 			</div>
 			<div data-role="collapsible">
 				<h1>Musik</h1>
-				<ul id="my-courses" data-role="listview" data-inset="true">
+				<ul id="my-courses-music" data-role="listview" data-inset="true">
 					<li><a href="#course" data-transition="none">Klavier</a></li>
 					<li><a href="#course" data-transition="none">Gitarre</a></li>
 				</ul>
@@ -52,28 +52,28 @@
 		</div>
 	</div>
 
-	<div id="course" data-role="page" data-theme="b">
+	<div id="course" data-role="page" data-theme="c">
 		<div id="course-head" data-role="header">
 			<a href="#overview" data-transition="none">Übersicht</a>
-			<h1>Kurs</h1>
+			<h1 id="x">Kurs</h1>
 		</div>
 		<div id="course-content" data-role="content">
 			<h2>Mathe - Aritmetik</h2>
 			<p>Inhalt: Titel, Zusammenfassung, Einheiten</p>
 			<ul id="course-units" data-role="listview" data-inset="true">
-				<li><a href="#unit" data-transition="none">Addition</a></li>
-				<li><a href="#unit" data-transition="none">Subtraktion</a></li>
-				<li><a href="#unit" data-transition="none">Multiplikation</a></li>
-				<li><a href="#unit" data-transition="none">Division</a></li>
+				<li><a href="#unit" data-transition="none" id="Addition">Addition</a></li>
+				<li><a href="#unit" data-transition="none" id="Subtraktion">Subtraktion</a></li>
+				<li><a href="#unit" data-transition="none" id="Multiplikation">Multiplikation</a></li>
+				<li><a href="#unit" data-transition="none" id="Division">Division</a></li>
 			</ul>
 			<a href="#unit" data-role="button" data-transition="none">Add</a>
 		</div>
 	</div>
 
-	<div id="unit" data-role="page" data-theme="b">
+	<div id="unit" data-role="page" data-theme="c">
 		<div id="head" data-role="header">
 			<a href="#course" class="ui-btn-left" data-transition="none">Kurs</a>
-			<h1>Einheit</h1>
+			<h1 id="unit-title">Einheit</h1>
 		</div>
 		<div id="content" data-role="content">
 			<h2>Schriftliche Division</h2>
@@ -81,11 +81,11 @@
 				<h3>Schriftliche Division</h3>
 				<p>Some text..</p>
 				<p>
-					<iframe width="420" height="315"
-						src="http://www.youtube.com/embed/pgojaqdY3fI?autoplay=1">
-					</iframe>
+<!-- 					<iframe width="420" height="315" -->
+<!-- 						src="http://www.youtube.com/embed/pgojaqdY3fI?autoplay=1"> -->
+<!-- 					</iframe> -->
 				</p>
-				http://youtu.be/pgojaqdY3fI
+				<a href="http://youtu.be/pgojaqdY3fI">Video</a>
 			</div>
 
 			<p>Inhalt: Titel, Zusammenfassung, Video, Aufgaben</p>
@@ -93,18 +93,91 @@
 	</div>
 
 	<script type="text/javascript">
-		// 	$('#course-units').children().each(function(){
-		// 	    var anchor = $(this).find('a');
-		// 	    if(anchor)
-		// 	    {
-		// 	        anchor.click(function(){
-		// 	            // save the selected id to the session storage and retrieve it in the next page
-		// 	            sessionStorage.selectedId=anchor.innerHTML;
-		// 	            // perform the transition
-		// 	            changePage('#unit');
-		// 	        });
-		// 	    }
-		// 	});
+	
+		<!-- initial test data -->
+		var courses = [
+           	{ "id" : "1",
+           	  "title" : "Mathe - Aritmetik 2",
+           	  "reference" : "ma7_kgs_schwarmstedt_2015",
+           	  "units" : [
+           	 	{ "title" : "Addition",
+           	      "summary" : "text",
+           	      "contents" : [
+           	     	{ "type" : "text", "content" : "bla bla"},
+           	     	{ "type" : "video", "url" : "yt"},
+           	     	{ "type" : "vocabulary", "content" : "a=A,b=B"},
+           	     	{ "type" : "pdf", "url" : "server"}   
+           	   	  ]
+           	 	},
+           	 	{ "title" : "Subtraktion", "summary" : "text"},
+           	 	{ "title" : "Multiplikation", "summary" : "text"},
+           	 	{ "title" : "Division", "summary" : "text"}
+           	 	]
+           	},
+           	{ "id" : "2", "title" : "Deutsch", "units" : []},
+           	{ "id" : "3", "title" : "Geschichte", "units" : []},
+           	{ "id" : "4", "title" : "Kunst", "units" : []},
+           	{ "id" : "5", "title" : "Einführung Informatik - Strukturen",
+           	  "reference" : "in8_g_mellendorf_2014",
+           	  "units" : [
+               	{ "title" : "Strukturen", "summary" : "text"},
+              	 	{ "title" : "Algorithmen", "summary" : "text"},
+              	 	{ "title" : "Programmieren", "summary" : "text"}
+                   ]
+           	}];
+
+		
+// 		courses[i].title;
+
+		$(document).on("pagebeforecreate","#overview",function() {
+			for (i=0; i<courses.length; i++) {
+				$('#my-courses').append('<li><a href="#course" data-transition="none" id="' + courses[i].title + '">' + courses[i].title + '</a></li>'); //.on("click",storeCourseID(courses[i].title));
+			}
+			$('#my-courses li').on('click', function() {
+				sessionStorage.selectedCourse = $(this).text();
+			});
+		});
+		
+// 		$('#my-courses li').on('click', function() {
+// 			alert($(this).text());
+// 		});
+		
+// 		function storeCourseID(id) {
+// 			sessionStorage.selectedId = id;
+// 			alert(id);
+// 		};
+		
+		<!-- transition from overview to course -->
+// 		$('#my-courses').children().each(function() {
+// 			var anchor = $(this).find('a');
+// 			if (anchor) {
+// 				anchor.on("click", function() {
+// // 					storeCourseID(anchor.attr('id'))
+// 					sessionStorage.selectedId = anchor.attr('id');
+// 				});
+// // 				alert(anchor.attr('id'));
+// 			}
+// 		});
+
+		$(document).on("pagebeforeshow","#course",function() {
+// 			alert(sessionStorage.selectedCourse);
+			document.getElementById('x').innerHTML = sessionStorage.selectedCourse;
+		});
+		
+		<!-- transition from course to unit -->
+		$('#course-units').children().each(function() {
+			var anchor = $(this).find('a');
+			if (anchor) {
+				anchor.click(function() {
+					sessionStorage.selectedId = anchor.attr('id');
+				});
+			}
+		});
+
+		$(document).on("pagebeforeshow","#unit",function() {
+			document.getElementById('unit-title').innerHTML = sessionStorage.selectedId;
+		});
+		
 	</script>
 
 </body>

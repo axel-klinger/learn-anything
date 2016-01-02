@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body onload="fillValue()">
+
+	<p id="test"></p>
+
+	<script type="text/javascript">
+var courses = [
+	{ "id" : "1",
+	  "title" : "Mathe - Aritmetik 2",
+	  "reference" : "ma7_kgs_schwarmstedt_2015",
+	  "units" : [
+	 	{ "title" : "Addition",
+	      "summary" : "text",
+	      "contents" : [
+	     	{ "type" : "text", "content" : "bla bla"},
+	     	{ "type" : "video", "url" : "yt"},
+	     	{ "type" : "vocabulary", "content" : "a=A,b=B"},
+	     	{ "type" : "pdf", "url" : "server"}   
+	   	  ]
+	 	},
+	 	{ "title" : "Subtraktion", "summary" : "text"},
+	 	{ "title" : "Multiplikation", "summary" : "text"},
+	 	{ "title" : "Division", "summary" : "text"}
+	 	]
+	},
+	{ "id" : "2", "title" : "Deutsch", "units" : []},
+	{ "id" : "3", "title" : "Geschichte", "units" : []},
+	{ "id" : "4", "title" : "Kunst", "units" : []},
+	{ "id" : "5", "title" : "Einführung Informatik - Strukturen",
+	  "reference" : "in8_g_mellendorf_2014",
+	  "units" : [
+    	{ "title" : "Strukturen", "summary" : "text"},
+   	 	{ "title" : "Algorithmen", "summary" : "text"},
+   	 	{ "title" : "Programmieren", "summary" : "text"}
+        ]
+	}];
+	
+	function fillValue() {
+		var text = "";
+		for (i=0; i<courses.length; i++) {
+
+		}
+		document.getElementById('test').innerHTML = courses.length;
+	}
+
+</script>
+
+</body>
+</html>
