@@ -77,16 +77,13 @@
 		</div>
 		<div id="content" data-role="content">
 			<h2 id="unit-title">Schriftliche Division</h2>
-<!-- 			<div class="panel radius"> -->
-<!-- 				<h3>Schriftliche Division</h3> -->
-				<p id="unit-summary">Some text..</p>
-				<p>
+			<p id="unit-summary">Some text..</p>
+			<p>
 <!-- 					<iframe width="420" height="315" -->
 <!-- 						src="http://www.youtube.com/embed/pgojaqdY3fI?autoplay=1"> -->
 <!-- 					</iframe> -->
-				</p>
-				<a href="http://youtu.be/pgojaqdY3fI">Video</a>
-<!-- 			</div> -->
+			</p>
+			<a href="http://youtu.be/pgojaqdY3fI">Video</a>
 
 			<p>Inhalt: Titel, Zusammenfassung, Video, Aufgaben</p>
 		</div>
@@ -102,7 +99,7 @@
            	  "reference" : "ma7_kgs_schwarmstedt_2015",
            	  "units" : [
            	 	{ "title" : "Addition",
-           	      "summary" : "text",
+           	      "summary" : "Schriftliche Addition",
            	      "contents" : [
            	     	{ "type" : "text", "content" : "bla bla"},
            	     	{ "type" : "video", "url" : "yt"},
@@ -110,9 +107,9 @@
            	     	{ "type" : "pdf", "url" : "server"}   
            	   	  ]
            	 	},
-           	 	{ "title" : "Subtraktion", "summary" : "text"},
-           	 	{ "title" : "Multiplikation", "summary" : "text"},
-           	 	{ "title" : "Division", "summary" : "text"}
+           	 	{ "title" : "Subtraktion", "summary" : "Schriftliche Subtraktion"},
+           	 	{ "title" : "Multiplikation", "summary" : "Schriftliche Multiplikation"},
+           	 	{ "title" : "Division", "summary" : "Schriftliche Division"}
            	 	]
            	},
            	{ "id" : "2", "title" : "Deutsch", "summary" : "Einführung in Deutsch ...", "units" : []},
@@ -121,9 +118,9 @@
            	{ "id" : "5", "title" : "Einführung Informatik - Strukturen",
            	  "reference" : "in8_g_mellendorf_2014",
            	  "units" : [
-               	{ "title" : "Strukturen", "summary" : "text"},
-              	 	{ "title" : "Algorithmen", "summary" : "text"},
-              	 	{ "title" : "Programmieren", "summary" : "text"}
+               	{ "title" : "Strukturen", "summary" : "Menge, Stapel, Schlange, Relation, Graph, ..."},
+              	 	{ "title" : "Algorithmen", "summary" : "Suche, ..."},
+              	 	{ "title" : "Programmieren", "summary" : "Groovy, JavaScript, ..."}
                    ]
            	}];
 
@@ -140,6 +137,7 @@
 
 		$(document).on("pagebeforeshow","#course",function() {
 			var courseId = sessionStorage.selectedCourse;
+			document.getElementById('x').innerHTML = courseId;
 			var course = '';
 			for (i=0; i<courses.length; i++) {
 				if (courses[i].title == courseId.trim()) {
@@ -165,38 +163,29 @@
 		});
 
 		$(document).on("pagebeforeshow","#unit",function() {
-// 			var unitId = sessionStorage.selectedId;
-// 			var courseId = sessionStorage.selectedCourse;
-// 			var unit = '';
-// 			for (i=0; i<courses.length; i++) {
-// 				if (courses[i].title == courseId.trim()) {
-// 					course = courses[i];
-// 					for (k=0; k<course.units.length; k++) {
-// 						if (course.units[k].title = unitId.trim()) {
-// 							unit = course.units[k];
-// 						}
-// 					}
-// 				}
-// 			}
-// 		// - find unit in course
-// 		// - set title, summary, content	
-// 			document.getElementById('unit-title').innerHTML = unit.title;
-// 			if (unit.summary) {
-// 				document.getElementById('unit-summary').innerHTML = unit.summary;
-// 			} else {
-// 				document.getElementById('unit-summary').innerHTML = '';
-// 			}
+			var unitId = sessionStorage.selectedId;
+			var courseId = sessionStorage.selectedCourse;
+			var unit = '';
+			var course = '';
+			// - find unit in course
+			for (i=0; i<courses.length; i++) {
+				if (courses[i].title == courseId.trim()) {
+					course = courses[i];
+					for (k=0; k<course.units.length; k++) {
+						if (course.units[k].title == unitId.trim()) {
+							unit = course.units[k];
+						}
+					}
+				}
+			}
+			// - set title, summary, content	
+			document.getElementById('unit-title').innerHTML = unit.title;
+			if (unit.summary) {
+				document.getElementById('unit-summary').innerHTML = unit.summary;
+			} else {
+				document.getElementById('unit-summary').innerHTML = '';
+			}
 			
-		});
-		
-		<!-- transition from overview to course -->
-		$(document).on("pagebeforeshow","#course",function() {
-			document.getElementById('x').innerHTML = sessionStorage.selectedCourse;
-		});
-		
-		<!-- transition from course to unit -->
-		$(document).on("pagebeforeshow","#unit",function() {
-			document.getElementById('unit-title').innerHTML = sessionStorage.selectedId;
 		});
 		
 	</script>
