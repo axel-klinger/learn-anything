@@ -136,6 +136,17 @@
 		});
 
 		$(document).on("pagebeforeshow","#course",function() {
+			var course = getActiveCourse();
+			fillCourseDetails(course);
+		});
+		
+		$(document).on("pagebeforeshow","#unit",function() {
+			var course = getActiveCourse();
+			var unit = getActiveUnit(course);
+			fillUnitDetails(unit);
+		});
+		
+		function getActiveCourse() {
 			var courseId = sessionStorage.selectedCourse;
 			document.getElementById('x').innerHTML = courseId;
 			var course = '';
@@ -144,7 +155,21 @@
 					course = courses[i];
 				}
 			}
-
+			return course;
+		}
+		
+		function getActiveUnit(course) {
+			var unitId = sessionStorage.selectedId;
+			var unit = '';
+			for (k=0; k<course.units.length; k++) {
+				if (course.units[k].title == unitId.trim()) {
+					unit = course.units[k];
+				}
+			}
+			return unit;
+		}
+		
+		function fillCourseDetails(course) {
 			document.getElementById('course-title').innerHTML = course.title;
 			if (course.summary) {
 				document.getElementById('course-summary').innerHTML = course.summary;
@@ -160,33 +185,16 @@
 				sessionStorage.selectedId = $(this).text();
 			});
 			$('#course-units').listview("refresh");
-		});
+		}
 
-		$(document).on("pagebeforeshow","#unit",function() {
-			var unitId = sessionStorage.selectedId;
-			var courseId = sessionStorage.selectedCourse;
-			var unit = '';
-			var course = '';
-			// - find unit in course
-			for (i=0; i<courses.length; i++) {
-				if (courses[i].title == courseId.trim()) {
-					course = courses[i];
-					for (k=0; k<course.units.length; k++) {
-						if (course.units[k].title == unitId.trim()) {
-							unit = course.units[k];
-						}
-					}
-				}
-			}
-			// - set title, summary, content	
+		function fillUnitDetails(unit) {
 			document.getElementById('unit-title').innerHTML = unit.title;
 			if (unit.summary) {
 				document.getElementById('unit-summary').innerHTML = unit.summary;
 			} else {
 				document.getElementById('unit-summary').innerHTML = '';
 			}
-			
-		});
+		}
 		
 	</script>
 
