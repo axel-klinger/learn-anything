@@ -83,13 +83,45 @@
 <!-- 						src="http://www.youtube.com/embed/pgojaqdY3fI?autoplay=1"> -->
 <!-- 					</iframe> -->
 			</p>
-			<a href="http://youtu.be/pgojaqdY3fI">Video</a>
+<!-- 			<a href="http://youtu.be/pgojaqdY3fI">Video</a> -->
 
-			<p>Inhalt: Titel, Zusammenfassung, Video, Aufgaben</p>
+<!-- 			<p>Inhalt: Titel, Zusammenfassung, Video, Aufgaben</p> -->
+			<a href="#unit-edit" data-role="button" data-transition="none">edit</a>
 		</div>
 	</div>
 
+	<div id="unit-edit" data-role="page" data-theme="c">
+		<div id="unit-edit-head" data-role="header">
+			<a href="#unit" class="ui-btn-left" data-transition="none">Einheit</a>
+			<h1 id="unit-title2">Einheit</h1>
+		</div>
+		<form>
+			<label for="edit-unit-title" class="ui-hidden-accessible">Unit title</label>
+			<input type="text" name="edit-unit-title" id="edit-unit-title" data-clear-btn="true" placeholder="Unit title ...">
+			<label for="edit-unit-summary" class="ui-hidden-accessible">Unit summary</label>
+			<textarea name="edit-unit-summary" id="edit-unit-summary" placeholder="Unit summary ..."></textarea>
+<!-- 			<a href="saveUnit()" data-role="button" data-transition="none">Save</a> -->
+			<input type="button" name="edit-unit-submit" id="edit-unit-submit" value="Save">
+		</form>
+	</div>
+
 	<script type="text/javascript">
+	
+		$(document).on("pagebeforeshow", "#unit-edit", function() {
+			$(document).on('click','#edit-unit-submit', function() {
+// 				alert("Save unit data");
+				var course = getActiveCourse();
+				var unit = getActiveUnit(course);
+				alert(unit.title);
+// 				unit.title = "TEST"; // document.getElementById('edit-unit-title').value;
+				alert(document.getElementById('edit-unit-title').value);
+				$.mobile.navigate("#unit", {});
+			});
+			var course = getActiveCourse();
+			var unit = getActiveUnit(course);
+			document.getElementById('edit-unit-title').value = unit.title;
+			document.getElementById('edit-unit-summary').innerHTML = unit.summary;
+		});
 	
 		<!-- initial test data -->
 		var courses = [
