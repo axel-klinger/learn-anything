@@ -66,7 +66,8 @@
 <!-- 				<li><a href="#unit" data-transition="none" id="Multiplikation">Multiplikation</a></li> -->
 <!-- 				<li><a href="#unit" data-transition="none" id="Division">Division</a></li> -->
 			</ul>
-			<a href="#course-edit" data-role="button" data-transition="none">Edit</a>
+			<a href="#course-edit" data-role="button" data-transition="none">Edit Course</a>
+			<a href="#unit-add" data-role="button" data-transition="none">Add Unit</a>
 		</div>
 	</div>
 	
@@ -111,6 +112,20 @@
 			<label for="edit-unit-summary" class="ui-hidden-accessible">Unit summary</label>
 			<textarea name="edit-unit-summary" id="edit-unit-summary" placeholder="Unit summary ..."></textarea>
 			<input type="button" name="edit-unit-submit" id="edit-unit-submit" value="Save">
+		</form>
+	</div>
+
+	<div id="unit-add" data-role="page" data-theme="c">
+		<div id="unit-add-head" data-role="header">
+			<a href="#course" class="ui-btn-left" data-transition="none">Kurs</a>
+			<h1 id="unit-add-title2">Einheit</h1>
+		</div>
+		<form>
+			<label for="add-unit-title" class="ui-hidden-accessible">Unit title</label>
+			<input type="text" name="add-unit-title" id="add-unit-title" data-clear-btn="true" placeholder="Unit title ...">
+			<label for="add-unit-summary" class="ui-hidden-accessible">Unit summary</label>
+			<textarea name="add-unit-summary" id="add-unit-summary" placeholder="Unit summary ..."></textarea>
+			<input type="button" name="add-unit-submit" id="add-unit-submit" value="Save">
 		</form>
 	</div>
 
@@ -159,6 +174,11 @@
 			document.getElementById('edit-unit-summary').innerHTML = unit.summary;
 		});
 	
+		$(document).on("pagebeforeshow", "#unit-add", function() {
+			document.getElementById('add-unit-title').value = '';
+			document.getElementById('add-unit-summary').innerHTML = '';
+		});
+
 		$(document).on('click','#edit-unit-submit', function() {
 			var course = getActiveCourse();
 			var unit = getActiveUnit(course);
@@ -167,6 +187,14 @@
 			$.mobile.navigate("#unit", {});
 		});
 
+		$(document).on('click','#add-unit-submit', function() {
+			var course = getActiveCourse();
+			var unit = {"id" : "1", "title" : "", "summary" : ""};
+			unit.title = document.getElementById('add-unit-title').value;
+			unit.summary = document.getElementById('add-unit-summary').value;
+			course.units.push(unit);
+			$.mobile.navigate("#course", {});
+		});
 		
 		function getActiveCourse() {
 			var courseId = sessionStorage.selectedCourse;
@@ -193,11 +221,7 @@
 		
 		function fillCourseDetails(course) {
 			document.getElementById('course-title').innerHTML = course.title;
-			if (course.summary) {
-				document.getElementById('course-summary').innerHTML = course.summary;
-			} else {
-				document.getElementById('course-summary').innerHTML = '';
-			}
+			document.getElementById('course-summary').innerHTML = course.summary ? course.summary : '';
 			
 			$('#course-units').empty();
 			if (course.units) {
@@ -213,11 +237,7 @@
 
 		function fillUnitDetails(unit) {
 			document.getElementById('unit-title').innerHTML = unit.title;
-			if (unit.summary) {
-				document.getElementById('unit-summary').innerHTML = unit.summary;
-			} else {
-				document.getElementById('unit-summary').innerHTML = '';
-			}
+			document.getElementById('unit-summary').innerHTML = unit.summary ? unit.summary :'';
 		}
 		
 		<!-- initial test data -->
