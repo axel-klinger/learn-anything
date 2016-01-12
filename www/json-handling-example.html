@@ -42,11 +42,21 @@ var courses = [
 	
 	function fillValue() {
 		var text = "";
+		var course = '';
 		for (i=0; i<courses.length; i++) {
 			if (courses[i].id == 1) {
-				alert(courses[i].title);
+// 				alert(courses[i].title);
+				course = courses[i];
 			}
 		}
+		var unit = '';
+		unit.title = "Hallo";
+		unit.summary = "Welt";
+		course.units.push(unit);
+		alert(course.title);
+		course.title = "test";
+// 		alert(course.title);
+		alert(course);		
 		document.getElementById('test').innerHTML = courses.length;
 		
 		// find course 1 title

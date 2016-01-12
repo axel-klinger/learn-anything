@@ -30,7 +30,7 @@
 <!-- 					<li><a href="#course" data-transition="none" id="Kunst">Kunst</a></li> -->
 <!-- 					<li><a href="#course" data-transition="none" id="Informatik">Informatik</a></li> -->
 				</ul>
-				<a href="#course" data-role="button" data-transition="none">Add</a>
+				<a href="#course-add" data-role="button" data-transition="none">Add</a>
 			</div>
 			<div data-role="collapsible">
 				<h1>Sport</h1>
@@ -85,6 +85,20 @@
 		</form>
 	</div>
 
+	<div id="course-add" data-role="page" data-theme="c">
+		<div id="course-add-head" data-role="header">
+			<a href="#overview" class="ui-btn-left" data-transition="none">Übersicht</a>
+			<h1 id="course-add-title2">Kurs</h1>
+		</div>
+		<form>
+			<label for="add-course-title" class="ui-hidden-accessible">Course title</label>
+			<input type="text" name="add-course-title" id="add-course-title" data-clear-btn="true" placeholder="Course title ...">
+			<label for="add-course-summary" class="ui-hidden-accessible">Course summary</label>
+			<textarea name="add-course-summary" id="add-course-summary" placeholder="Course summary ..."></textarea>
+			<input type="button" name="add-course-submit" id="add-course-submit" value="Save">
+		</form>
+	</div>
+
 	<div id="unit" data-role="page" data-theme="c">
 		<div id="head" data-role="header">
 			<a href="#course" class="ui-btn-left" data-transition="none">Kurs</a>
@@ -131,7 +145,8 @@
 
 	<script type="text/javascript">
 	
-		$(document).on("pagebeforecreate","#overview",function() {
+		$(document).on("pagebeforeshow","#overview",function() {
+			$('#my-courses').empty();
 			for (i=0; i<courses.length; i++) {
 				$('#my-courses').append('<li id="' + courses[i].id + '"><a href="#course" data-transition="none" id="' + courses[i].id + '">' + courses[i].title + '</a></li>'); //.on("click",storeCourseID(courses[i].title));
 			}
@@ -139,6 +154,7 @@
 				sessionStorage.selectedCourse = $(this).text();
 // 				sessionStorage.selectedCourseId = $(this).id);
 			});
+			$('#my-courses').listview("refresh");
 		});
 
 		
@@ -153,11 +169,24 @@
 			document.getElementById('edit-course-summary').innerHTML = course.summary;
 		});
 	
+		$(document).on("pagebeforeshow", "#course-add", function() {
+			document.getElementById('edit-course-title').value = '';
+			document.getElementById('edit-course-summary').innerHTML = '';
+		});
+		
 		$(document).on('click','#edit-course-submit', function() {
 			var course = getActiveCourse();
 			course.title = document.getElementById('edit-course-title').value;
 			course.summary = document.getElementById('edit-course-summary').value;
 			$.mobile.navigate("#course", {});
+		});
+
+		$(document).on('click','#add-course-submit', function() {
+			var course = {"id" : "1", "title" : "", "summary" : "", "units" : []};
+			course.title = document.getElementById('add-course-title').value;
+			course.summary = document.getElementById('add-course-summary').value;
+			courses.push(course);
+			$.mobile.navigate("#overview", {});
 		});
 
 		
