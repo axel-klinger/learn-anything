@@ -111,7 +111,7 @@
 <!-- 				src="http://www.youtube.com/embed/pgojaqdY3fI?autoplay=1"> -->
 <!-- 			</iframe> -->
 			<a href="http://youtu.be/pgojaqdY3fI">Video</a>
-			<a href="#unit-edit" data-role="button" data-transition="none">edit</a>
+			<a href="#unit-edit" data-role="button" data-transition="none">Edit</a>
 		</div>
 	</div>
 
@@ -178,6 +178,7 @@
 			var course = getActiveCourse();
 			course.title = document.getElementById('edit-course-title').value;
 			course.summary = document.getElementById('edit-course-summary').value;
+			sessionStorage.selectedCourse = course.title;
 			$.mobile.navigate("#course", {});
 		});
 
@@ -213,6 +214,7 @@
 			var unit = getActiveUnit(course);
 			unit.title = document.getElementById('edit-unit-title').value;
 			unit.summary = document.getElementById('edit-unit-summary').value;
+			sessionStorage.selectedId = unit.title;
 			$.mobile.navigate("#unit", {});
 		});
 
