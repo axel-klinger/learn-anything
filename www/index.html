@@ -166,7 +166,7 @@
 		$(document).on("pagebeforeshow", "#course-edit", function() {
 			var course = getActiveCourse();
 			$('#edit-course-title').val(course.title);
-			$('#edit-course-summary').html(course.summary);
+			$('#edit-course-summary').html(course.summary ? course.summary : '');
 		});
 	
 		$(document).on("pagebeforeshow", "#course-add", function() {
@@ -201,7 +201,7 @@
 			var course = getActiveCourse();
 			var unit = getActiveUnit(course);
 			$('#edit-unit-title').val(unit.title);
-			$('#edit-unit-summary').html(unit.summary);
+			$('#edit-unit-summary').html(unit.summary ? unit.summary : '');
 		});
 	
 		$(document).on("pagebeforeshow", "#unit-add", function() {
@@ -252,7 +252,7 @@
 		
 		function fillCourseDetails(course) {
 			$('#course-title').html(course.title);
-			document.getElementById('course-summary').innerHTML = course.summary ? course.summary : '';
+			$('#course-summary').html(course.summary ? course.summary : '');
 			
 			$('#course-units').empty();
 			if (course.units) {
@@ -271,7 +271,7 @@
 
 		function fillUnitDetails(unit) {
 			$('#unit-title').html(unit.title);
-			document.getElementById('unit-summary').innerHTML = unit.summary ? unit.summary :'';
+			$('#unit-summary').html(unit.summary ? unit.summary : '');
 		}
 		
 		<!-- initial test data -->
