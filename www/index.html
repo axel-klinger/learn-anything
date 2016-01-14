@@ -165,27 +165,27 @@
 
 		$(document).on("pagebeforeshow", "#course-edit", function() {
 			var course = getActiveCourse();
-			document.getElementById('edit-course-title').value = course.title;
-			document.getElementById('edit-course-summary').innerHTML = course.summary;
+			$('#edit-course-title').val(course.title);
+			$('#edit-course-summary').html(course.summary);
 		});
 	
 		$(document).on("pagebeforeshow", "#course-add", function() {
-			document.getElementById('edit-course-title').value = '';
-			document.getElementById('edit-course-summary').innerHTML = '';
+			$('#edit-course-title').val('');
+			$('#edit-course-summary').val('');
 		});
 		
 		$(document).on('click','#edit-course-submit', function() {
 			var course = getActiveCourse();
-			course.title = document.getElementById('edit-course-title').value;
-			course.summary = document.getElementById('edit-course-summary').value;
+			course.title = $('#edit-course-title').val();
+			course.summary = $('#edit-course-summary').val();
 			sessionStorage.selectedCourse = course.title;
 			$.mobile.navigate("#course", {});
 		});
 
 		$(document).on('click','#add-course-submit', function() {
 			var course = {"id" : "1", "title" : "", "summary" : "", "units" : []};
-			course.title = document.getElementById('add-course-title').value;
-			course.summary = document.getElementById('add-course-summary').value;
+			course.title = $('#add-course-title').val();
+			course.summary = $('#add-course-summary').val();
 			courses.push(course);
 			$.mobile.navigate("#overview", {});
 		});
@@ -200,20 +200,20 @@
 		$(document).on("pagebeforeshow", "#unit-edit", function() {
 			var course = getActiveCourse();
 			var unit = getActiveUnit(course);
-			document.getElementById('edit-unit-title').value = unit.title;
-			document.getElementById('edit-unit-summary').innerHTML = unit.summary;
+			$('#edit-unit-title').val(unit.title);
+			$('#edit-unit-summary').html(unit.summary);
 		});
 	
 		$(document).on("pagebeforeshow", "#unit-add", function() {
-			document.getElementById('add-unit-title').value = '';
-			document.getElementById('add-unit-summary').innerHTML = '';
+			$('#add-unit-title').val('');
+			$('#add-unit-summary').val('');
 		});
 
 		$(document).on('click','#edit-unit-submit', function() {
 			var course = getActiveCourse();
 			var unit = getActiveUnit(course);
-			unit.title = document.getElementById('edit-unit-title').value;
-			unit.summary = document.getElementById('edit-unit-summary').value;
+			unit.title = $('#edit-unit-title').val();
+			unit.summary = $('#edit-unit-summary').val();
 			sessionStorage.selectedId = unit.title;
 			$.mobile.navigate("#unit", {});
 		});
@@ -221,15 +221,15 @@
 		$(document).on('click','#add-unit-submit', function() {
 			var course = getActiveCourse();
 			var unit = {"id" : "1", "title" : "", "summary" : ""};
-			unit.title = document.getElementById('add-unit-title').value;
-			unit.summary = document.getElementById('add-unit-summary').value;
+			unit.title = $('#add-unit-title').val();
+			unit.summary = $('#add-unit-summary').val();
 			course.units.push(unit);
 			$.mobile.navigate("#course", {});
 		});
 		
 		function getActiveCourse() {
 			var courseId = sessionStorage.selectedCourse;
-			document.getElementById('x').innerHTML = courseId;
+			$('#x').html(courseId);
 			var course = '';
 			for (i=0; i<courses.length; i++) {
 				if (courses[i].title == courseId.trim()) {
@@ -251,7 +251,7 @@
 		}
 		
 		function fillCourseDetails(course) {
-			document.getElementById('course-title').innerHTML = course.title;
+			$('#course-title').html(course.title);
 			document.getElementById('course-summary').innerHTML = course.summary ? course.summary : '';
 			
 			$('#course-units').empty();
@@ -262,12 +262,15 @@
 				$('#course-units li').on('click', function() {
 					sessionStorage.selectedId = $(this).text();
 				});
+				$('#course-units li').on('swipeleft', function() {
+					alert('Delete me');
+				});
 			}
 			$('#course-units').listview("refresh");
 		}
 
 		function fillUnitDetails(unit) {
-			document.getElementById('unit-title').innerHTML = unit.title;
+			$('#unit-title').html(unit.title);
 			document.getElementById('unit-summary').innerHTML = unit.summary ? unit.summary :'';
 		}
 		
