@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Editable ListView</title>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+</head>
+<body>
+
+	<div id='pageone' data-role='page'>
+		<ul id="list" data-role="listview" data-inset="true">
+		</ul>
+		<label for="switch-edit" class="ui-hidden-accessible">Flip switch:</label> 
+		<select name="switch-edit" id="switch-edit" data-role="slider">
+			<option value="view" selected="selected">View</option>
+			<option value="edit">Edit</option>
+		</select>
+	</div>
+
+	<script type="text/javascript">
+	
+		var items = [{ "id" : "2", "title" : "Deutsch", "summary" : "Einführung in Deutsch ...", "units" : []},
+		             { "id" : "3", "title" : "Geschichte", "summary" : "Einführung in Geschichte ...", "units" : []},
+		             { "id" : "4", "title" : "Kunst", "units" : []},
+		             { "id" : "5", "title" : "Informatik","units" : []}];
+		
+		$('#switch-edit').change(function() {
+			var state = $(this).val();
+			fillList(state);
+			$.mobile.navigate("#pageone", {});
+		});	
+
+		$(document).on('pageinit', function() {
+			fillList('view');
+		});
+		
+		function fillList(state) {
+			$('#list').empty();
+			if (state == 'view') {
+				for (i=0; i<items.length; i++) {
+					$('#list').append('<li><a href="#">' + items[i].title + '</a></li>'); //.on('click', alert(1));
+				}
+			} else {
+				for (i=0; i<items.length; i++) {
+					$('#list').append('<li data-icon="minus"><a href="#">' + items[i].title + '</a></li>'); //.on('click', alert(1));
+				}
+			}
+			$('#list li').on('click', function() {
+				if (state == 'view') {
+					alert('View ' + $(this).text());
+				} else {
+					var index = -1;
+					for(k=0;k<items.length;k++) {
+						if (items[k].title.localeCompare($(this).text().trim()) == 0) {
+							index = k;
+						}
+					}
+					if (index >= 0) {
+						items.splice( index, 1 );
+					}
+					fillList('edit');
+				}
+			});
+			$('#list').listview("refresh");
+		}
+	</script>
+</body>
+</html>
