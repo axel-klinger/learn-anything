@@ -31,16 +31,11 @@
 <!-- 					<li><a href="#course" data-transition="none" id="Informatik">Informatik</a></li> -->
 				</ul>
 				<a href="#course-add" data-role="button" data-transition="none">Add</a>
-<!-- <fieldset> -->
-  <div data-role="fieldcontain">
-<label for="flip-1" class="ui-hidden-accessible">Flip switch:</label>
-<select name="flip-1" id="flip-1" data-role="slider">
-    <option value="NG">View</option>
-    <option value="OK">Edit</option>
-</select>
-
-  </div>
-<!-- </fieldset> -->
+				<label for="switch-overview-edit" class="ui-hidden-accessible">Flip switch:</label> 
+				<select name="switch-overview-edit" id="switch-overview-edit" data-role="slider">
+					<option value="view" selected="selected">View</option>
+					<option value="edit">Edit</option>
+				</select>
 			</div>
 			<div data-role="collapsible">
 				<h1>Sport</h1>
@@ -78,6 +73,11 @@
 			</ul>
 			<a href="#course-edit" data-role="button" data-transition="none">Edit Course</a>
 			<a href="#unit-add" data-role="button" data-transition="none">Add Unit</a>
+			<label for="switch-course-edit" class="ui-hidden-accessible">Flip switch:</label> 
+			<select name="switch-course-edit" id="switch-course-edit" data-role="slider">
+				<option value="view" selected="selected">View</option>
+				<option value="edit">Edit</option>
+			</select>
 		</div>
 	</div>
 	
@@ -154,19 +154,15 @@
 	</div>
 
 	<script type="text/javascript">
-	
-		$(document).on("pagebeforeshow","#overview",function() {
-			$('#my-courses').empty();
-			for (i=0; i<courses.length; i++) {
-				$('#my-courses').append('<li id="' + courses[i].id + '"><a href="#course" data-transition="none" id="' + courses[i].id + '">' + courses[i].title + '</a></li>'); //.on("click",storeCourseID(courses[i].title));
-			}
-			$('#my-courses li').on('click', function() {
-				sessionStorage.selectedCourse = $(this).text();
-// 				sessionStorage.selectedCourseId = $(this).id);
-			});
-			$('#my-courses').listview("refresh");
-		});
 
+		$('#switch-overview-edit').change(function() {
+			fillOverview();
+		});	
+
+		$(document).on("pagebeforeshow","#overview",function() {
+			fillOverview();
+		});
+		
 		
 		$(document).on("pagebeforeshow","#course",function() {
 			var course = getActiveCourse();
@@ -260,23 +256,92 @@
 			return unit;
 		}
 		
+		$('#switch-course-edit').change(function() {
+			fillCourseDetails(getActiveCourse());
+		});	
+		
+		function fillOverview() {
+			var state = $('#switch-overview-edit').val();
+			$('#my-courses').empty();
+			if (state == 'view') {
+				for (i=0; i<courses.length; i++) {
+					$('#my-courses').append('<li id="' + courses[i].id + '"><a href="#course" data-transition="none" id="' + courses[i].id + '">' + courses[i].title + '</a></li>'); //.on("click",storeCourseID(courses[i].title));
+				}
+			} else {
+				for (i=0; i<courses.length; i++) {
+					$('#my-courses').append('<li data-icon="minus" id="' + courses[i].id + '"><a href="#overview" data-transition="none" id="' + courses[i].id + '">' + courses[i].title + '</a></li>'); //.on("click",storeCourseID(courses[i].title));
+				}
+			}
+			$('#my-courses li').on('click', function() {
+				if (state == 'view') {
+					sessionStorage.selectedCourse = $(this).text();
+// 					sessionStorage.selectedCourseId = $(this).id);
+				} else {
+					deleteCourse($(this).text());
+				}
+			});
+			$('#my-courses').listview("refresh");
+		}
+		
+		function deleteCourse(courseTitle) {
+			var index = -1;
+			for(k=0;k<courses.length;k++) {
+				if (courses[k].title == courseTitle.trim()) {
+					index = k;
+				}
+			}
+			if (index >= 0) {
+				courses.splice( index, 1 );
+			}
+			fillOverview();
+		}
+
 		function fillCourseDetails(course) {
 			$('#course-title').html(course.title);
 			$('#course-summary').html(course.summary ? course.summary : '');
 			
+			var state = $('#switch-course-edit').val();
 			$('#course-units').empty();
 			if (course.units) {
-				for (i=0; i<course.units.length; i++) {
-					$('#course-units').append('<li><a href="#unit" data-transition="none" id="' + course.units[i].title + '">' + course.units[i].title + '</a></li>'); //.on("click",storeCourseID(courses[i].title));
+				if (state == 'view') {
+					for (i=0; i<course.units.length; i++) {
+						$('#course-units').append('<li><a href="#unit" data-transition="none" id="' + course.units[i].title + '">' + course.units[i].title + '</a></li>'); //.on("click",storeCourseID(courses[i].title));
+					}
+				} else {
+					for (i=0; i<course.units.length; i++) {
+						$('#course-units').append('<li data-icon="minus"><a href="#course" data-transition="none" id="' + course.units[i].title + '">' + course.units[i].title + '</a></li>'); //.on("click",storeCourseID(courses[i].title));
+					}
 				}
+				
 				$('#course-units li').on('click', function() {
-					sessionStorage.selectedId = $(this).text();
+					if (state == 'view') {
+						sessionStorage.selectedId = $(this).text();
+					} else {
+// 						alert('Delete ' + $(this).text());
+						deleteUnit($(this).text());
+					}
 				});
-				$('#course-units li').on('swipeleft', function() {
-					alert('Delete me');
-				});
+// 				$('#course-units li').on('swipeleft', function() {
+// 					alert('Delete me');
+// 				});
 			}
 			$('#course-units').listview("refresh");
+		}
+
+		function deleteUnit(unitTitle) {
+			var course = getActiveCourse();
+			var index = -1;
+			if (course.units) {
+				for(k=0;k<course.units.length;k++) {
+					if (course.units[k].title == unitTitle.trim()) {
+						index = k;
+					}
+				}
+				if (index >= 0) {
+					course.units.splice( index, 1 );
+				}
+			}
+			fillCourseDetails(course);
 		}
 
 		function fillUnitDetails(unit) {

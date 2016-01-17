@@ -29,7 +29,7 @@
 		$('#switch-edit').change(function() {
 			var state = $(this).val();
 			fillList(state);
-			$.mobile.navigate("#pageone", {});
+// 			$.mobile.navigate("#pageone", {});
 		});	
 
 		$(document).on('pageinit', function() {
@@ -53,7 +53,7 @@
 				} else {
 					var index = -1;
 					for(k=0;k<items.length;k++) {
-						if (items[k].title.localeCompare($(this).text().trim()) == 0) {
+						if (items[k].title == $(this).text().trim()) {
 							index = k;
 						}
 					}
