@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script
+	src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+	<div id="overview" data-role="page" data-theme="a">
+		<div id="overview-head" data-role="header">
+			<a href="#myPanel" class="ui-btn ui-icon-bars ui-btn-icon-notext" data-transition="none">Panel</a>
+			<h1>Schule</h1>
+		</div>
+
+		<div id="myPanel" data-role="panel" data-theme="b"> 
+			<ul id="my-categories" data-role="listview" data-inset="true">
+	<!-- 		fill from JSON model -->
+			</ul>
+			<a href="#add-category" class="ui-btn ui-icon-plus ui-btn-icon-notext" data-transition="none">New category</a>
+		</div> 
+
+		<div id="overview-content" data-role="content">
+			<h2 id="my-title">Test</h2>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+
+		$('#overview').on('pagebeforecreate', function() {
+			fillList();
+		});
+	
+		function fillList() {
+			$('#my-categories').empty();
+			$('#my-categories').append('<li><a href="#overview-head" data-rel="close">Schule</a></li>');
+			$('#my-categories').append('<li><a href="#overview-head" data-rel="close">Sport</a></li>');
+			$('#my-categories').append('<li><a href="#overview-head" data-rel="close">Kunst</a></li>');
+			
+			$('#my-categories li').on('click', function() {
+				$('#my-title').html($(this).text());
+			});
+		}
+	
+	</script>
+
+</body>
+</html>

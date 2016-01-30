@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Markdown test</title>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+	<div id="view" data-role="page">
+		<div id="view-head" data-role="header">
+			<h1>View</h1>
+			<a href="#edit" class="ui-btn-right" data-transition="none">Edit</a>
+		</div>
+		<div id="view-content" data-role="content">
+			<h2 id="unit-title">x</h2>
+			<p id="unit-summary">y</p>
+		</div>
+	</div>
+
+	<div id="edit" data-role="page">
+		<div id="edit-head" data-role="header">
+			<a href="#view" class="ui-btn-left" data-transition="none">View</a>
+			<h1>Edit</h1>
+		</div>
+		<form>
+			<label for="edit-title" class="ui-hidden-accessible">Unit title</label>
+			<input type="text" name="edit-title" id="edit-title" data-clear-btn="true" placeholder="Title ...">
+			<label for="edit-summary" class="ui-hidden-accessible">Unit summary</label>
+			<textarea name="edit-summary" id="edit-summary" placeholder="Summary ..."></textarea>
+			<input type="button" name="edit-submit" id="edit-submit" value="Save">
+		</form>
+	</div>
+
+	<script type="text/javascript">
+	/* 
+		#H1
+		##H2
+		###H3
+		- List1
+		* List2
+		*bold*
+		_italic_
+		[video|title|link]
+		[image|title|link]
+	*/
+		var unit =  { "title" : "Hello", "summary" : "#Addition\n\n"
+			+ "Die *Addition* (_lateinisch_ additio, von addere „hinzufügen“), umgangssprachlich auch Plus-Rechnen oder Und-Rechnen genannt, ist eine der vier Grundrechenarten in der Arithmetik.\n\n"
+			+ "##Grundregeln und Eigenschaften\n\n"
+			+ "Die Addition kann in allen Zahlenbereichen ausgeführt werden.\n\n"
+			+ "	- Assoziativgesetz\n\n"
+			+ "	- Neutralität der Null\n\n"
+			+ "	- ...\n\n"
+			+ "##Schriftliche Addition\n\n"
+			+ "Die schriftliche Addition ist eine der grundlegenden Kulturtechniken, die bereits in den ersten Schuljahren der Grundschule erlernt wird. Die Beherrschung der schriftlichen Addition ist auch Voraussetzung für das Erlernen der schriftlichen Multiplikation.\n\n"
+			+ "[video|Schriftliche Addition erklärt|https://www.youtube.com/watch?v=ud1ZXgTFaMw]" };
+	
+		$(document).on("pagebeforeshow","#view",function() {
+			document.getElementById('unit-title').innerHTML = unit.title;
+			document.getElementById('unit-summary').innerHTML = renderText(unit.summary);
+		});
+
+		function renderText(text) {
+			var result = text;
+			result = result.replace(/##([^\n]+)/g,'<h2>$1</h2>');
+			result = result.replace(/#([^\n]+)/g,'<h1>$1</h1>');
+			result = result.replace(/\n([^\n]+\n)/g,'<p>$1</p>');
+			result = result.replace(/\*([^\*]+)\*/g,'<b>$1</b>');
+			result = result.replace(/_([^_]+)_/g,'<i>$1</i>');
+			result = result.replace(/\t\- ([^\n]+)/g,'<li>$1</li>');
+			result = result.replace(/\[([^\]]+)\]/g,'<a href="$1">$1</a>');
+// 			alert(result);
+			return result;
+		}
+		
+		$(document).on("pagebeforeshow","#edit",function() {
+			document.getElementById('edit-title').value = unit.title;
+			document.getElementById('edit-summary').innerHTML = unit.summary;
+		});
+		
+		$(document).on('click', '#edit-submit', function() {
+			unit.title = document.getElementById('edit-title').value;
+			unit.summary = document.getElementById('edit-summary').value;
+			$.mobile.navigate("#view", {});
+		});
+	</script>
+</body>
+</html>
