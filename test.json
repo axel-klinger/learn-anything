@@ -1,0 +1,28 @@
+{ "id" : "1",
+           	  "title" : "Mathe",
+           	  "summary" : "Einführung in Mathe ...",
+           	  "reference" : "ma7_kgs_schwarmstedt_2015",
+           	  "units" : [
+           	 	{ "title" : "Addition",
+           	      "summary" : "#Addition\n\n"
+          			+ "Die *Addition* (_lateinisch_ additio, von addere „hinzufügen“), umgangssprachlich auch Plus-Rechnen oder Und-Rechnen genannt, ist eine der vier Grundrechenarten in der Arithmetik.\n\n"
+        			+ "##Grundregeln und Eigenschaften\n\n"
+        			+ "Die Addition kann in allen Zahlenbereichen ausgeführt werden.\n\n"
+        			+ "	- Assoziativgesetz\n\n"
+        			+ "	- Neutralität der Null\n\n"
+        			+ "	- ...\n\n"
+        			+ "##Schriftliche Addition\n\n"
+        			+ "Die schriftliche Addition ist eine der grundlegenden Kulturtechniken, die bereits in den ersten Schuljahren der Grundschule erlernt wird. Die Beherrschung der schriftlichen Addition ist auch Voraussetzung für das Erlernen der schriftlichen Multiplikation.\n\n"
+        			+ "[video|Schriftliche Addition erklärt|https://www.youtube.com/watch?v=ud1ZXgTFaMw]",
+           	      "contents" : [
+           	     	{ "type" : "text", "content" : "bla bla"},
+           	     	{ "type" : "video", "url" : "http://youtu.be/pgojaqdY3fI"},
+           	     	{ "type" : "vocabulary", "content" : "a=A\nb=B"},
+           	     	{ "type" : "pdf", "url" : "server"}   
+           	   	  ]
+           	 	},
+           	 	{ "title" : "Subtraktion", "summary" : "Schriftliche Subtraktion"},
+           	 	{ "title" : "Multiplikation", "summary" : "Schriftliche Multiplikation"},
+           	 	{ "title" : "Division", "summary" : "Schriftliche Division"}
+           	 	]
+           	}
