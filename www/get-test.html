@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script
+	src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+Hi!
+
+	<script type="text/javascript">
+	
+	$( document ).on( "pageinit",  function() {
+		alert('Hallo');
+
+		var url = "http://localhost:8080/user/index.json"
+// 		var url = "https://raw.githubusercontent.com/axel-klinger/learn-anything/master/test.json" // geht nicht :-( warum? keine Ahnung
+			var data = jQuery.parseJSON(	// JSON.parse ???
+			        jQuery.ajax({
+			            url: url, 
+			            async: false,
+			            dataType: 'json'
+			        }).responseText
+			    );
+		alert(JSON.stringify(data));
+	});
+		
+	</script>
+
+</body>
+</html>

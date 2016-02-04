@@ -12,7 +12,7 @@
 <body>
 
 	<div id="overview" data-role="page" data-theme="a">
-		<div id="overview-head" data-role="header">
+		<div id="overview-head" data-role="header" data-position="fixed" data-fullscreen="true">
 			<a href="#myPanel" class="ui-btn ui-icon-bars ui-btn-icon-notext" data-transition="none">Panel</a>
 			<h1>Schule</h1>
 		</div>
@@ -21,29 +21,43 @@
 			<ul id="my-categories" data-role="listview" data-inset="true">
 	<!-- 		fill from JSON model -->
 			</ul>
-			<a href="#add-category" class="ui-btn ui-icon-plus ui-btn-icon-notext" data-transition="none">New category</a>
+			<a href="#edit-panel" class="ui-btn ui-icon-gear ui-btn-icon-notext" data-transition="none">Edit</a>
 		</div> 
 
 		<div id="overview-content" data-role="content">
+		<br>
 			<h2 id="my-title">Test</h2>
+		</div>
+	</div>
+
+	<div id="edit-panel" data-role="page" data-theme="b">
+		<div id="edit-panel-head" data-role="header" data-position="fixed" data-fullscreen="true">
+			<a href="#overview" class="ui-btn ui-icon-carat-l ui-btn-icon-notext" data-transition="none">Übersicht</a>
+			<h1>Schule</h1>
 		</div>
 	</div>
 
 	<script type="text/javascript">
 
-		$('#overview').on('pagebeforecreate', function() {
-			fillList();
+		var categories = [{"title" : "Schule"}, 
+		                  {"title" : "Sport"}, 
+		                  {"title" : "Musik"}, 
+		                  {"title" : "Basteln"}];
+
+		$('#overview').on('pagebeforeshow', function() {
+			fillPanel();
+// 			$('#myPanel').trigger( "updatelayout" );
 		});
 	
-		function fillList() {
+		function fillPanel() {
 			$('#my-categories').empty();
-			$('#my-categories').append('<li><a href="#overview-head" data-rel="close">Schule</a></li>');
-			$('#my-categories').append('<li><a href="#overview-head" data-rel="close">Sport</a></li>');
-			$('#my-categories').append('<li><a href="#overview-head" data-rel="close">Kunst</a></li>');
-			
+			for (i=0; i<categories.length; i++) {
+				$('#my-categories').append('<li><a href="#overview-head" data-rel="close">' + categories[i].title + '</a></li>');
+			}
 			$('#my-categories li').on('click', function() {
 				$('#my-title').html($(this).text());
 			});
+			$('#my-categories').listview("refresh");
 		}
 	
 	</script>
