@@ -8,28 +8,108 @@
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script
 	src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<script>
+    $(document).bind('mobileinit',function(){
+        $.mobile.changePage.defaults.changeHash = false;
+        $.mobile.hashListeningEnabled = false;
+        $.mobile.pushStateEnabled = false;
+    });
+</script> 	
 </head>
 <body>
 
-Hi!
+	Hi!
 
 	<script type="text/javascript">
-	
-	$( document ).on( "pageinit",  function() {
-		alert('Hallo');
+		$(document).on("pageinit", function() {
 
-		var url = "http://localhost:8080/user/index.json"
-// 		var url = "https://raw.githubusercontent.com/axel-klinger/learn-anything/master/test.json" // geht nicht :-( warum? keine Ahnung
-			var data = jQuery.parseJSON(	// JSON.parse ???
-			        jQuery.ajax({
-			            url: url, 
-			            async: false,
-			            dataType: 'json'
-			        }).responseText
-			    );
-		alert(JSON.stringify(data));
-	});
+/*
+	Example for grails
+	- grails create-app bookstore
+	- cd bookstore
+	- grails create-domain-class Book
+	- vi grails-app/domain/bookstore/Book.groovy
+	
+	package bookstore
+
+	import grails.rest.*
+
+	@Resource(uri='/books')
+	class Book {
+
+	    String title
+	    String author
+	    Double price
+
+	    static constraints = {
+	        title blank: false
+	        author blank: false
+	    }
+	}
+	
+	- vi grails-app/init/BootStrap.groovy
+	
+	import bookstore.Book
+
+	class BootStrap {
+
+	    def init = { servletContext ->
+	        new Book(title:"Robinson",author:"Davoe",price:10.0).save()
+	    }
+	    def destroy = {
+	    }
+	}
+
+ */			
+			
+			
+		// call all books
+		// curl -i http://localhost:8080/books.json
+// 			var url = "http://localhost:8080/books.json"
+// 			// 		var url = "https://raw.githubusercontent.com/axel-klinger/learn-anything/master/test.json" // geht nicht :-( warum? keine Ahnung HTTPS!
+// 			var data = $.ajax({
+// 				url : url,
+// 				async : false,
+// 				dataType : 'json'
+// 			});
+// 			alert(JSON.stringify(data.responseText));
+
+		// add new book
+		// curl -i -X POST -H "Content-Type: application/json" -d '{"title":"Along Came A Spider","author":"Someone","price":"15.0"}' http://localhost:8080/books
+// 		    $.post("http://localhost:8080/books.json",
+// 		    	    {
+// 		    	        title: "Donald Duck",
+// 		    	        author: "Duckburg",
+// 		    	        price: "12"
+// 		    	    },
+// 		    	    function(data, status){
+// 		    	        alert("Data: " + data + "\nStatus: " + status);
+// 		    	    });
 		
+		// edit book
+		// curl -i -X PUT -H "Content-Type: application/json" -d '{"price":"4.0"}' http://localhost:8080/books/2.json
+			$.ajax({
+			   url: 'http://localhost:8080/books/2.json',
+			   type: 'PUT',
+ 			   // dataType : 'json', // only for get
+			   contentType: "application/json",
+			   data : '{"price":"3"}',
+			   success: function(response) {
+			     //...
+			   }
+			});		
+		
+		// delete a book
+		// curl -i -X DELETE -H "Content-Type: application/json"  http://localhost:8080/books/4.json
+// 		    $.ajax({
+// 		        url: 'http://localhost:8080/books/3.json',
+// 		        type: 'DELETE',
+// 		        success: function(result) {
+// 		            // Do something with the result
+// 		        }
+// 		    });
+		
+		});
 	</script>
 
 </body>
