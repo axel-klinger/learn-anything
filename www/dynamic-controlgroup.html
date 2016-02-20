@@ -19,6 +19,7 @@
     </div>
     <button id="app" data-role="button" data-mini="true" data-inline="true">Append</button>
     <button id="clean" data-role="button" data-mini="true" data-inline="true">Clean</button>
+    <button id="choose" data-role="button" data-mini="true" data-inline="true">Choose</button>
 
 
 	<script type="text/javascript">
@@ -37,6 +38,20 @@
 	$("#clean").on("click", function () {
 		$("#my-controlgroup").controlgroup("container").empty();
 	    $("#my-controlgroup").controlgroup("refresh");
+	    counter = 0;
+	});
+	
+	$("#choose").on("click", function () {
+		var result = $('input[type="checkbox"]:checked');
+		if (result.length>0) {
+			var resultString = "";
+			result.each(function(){
+				resultString += $(this).attr('id') + ",";
+			});
+			alert(resultString);
+		} else {
+			alert("No checked course");			
+		}
 	});
 	</script>
 
