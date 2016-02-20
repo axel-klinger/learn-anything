@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Form test</title>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+<!-- Beispiel -->
+<!-- http://demos.jquerymobile.com/1.4.2/controlgroup-dynamic/ -->
+
+    <div data-role="controlgroup" id="my-controlgroup">
+        <!-- items will be injected here --> 
+<!--    <a href='#' data-role='button' data-iconpos='notext' data-icon='grid' class='details'>Details</a> -->
+        <label for='widget1'>Checkbox 1</label><input type='checkbox' id='widget1'></input>
+    </div>
+    <button id="app" data-role="button" data-mini="true" data-inline="true">Append</button>
+
+
+	<script type="text/javascript">
+	var counter = 1;
+	
+	$("#app").on("click", function () {
+		counter++;
+// 	    $el = $("<a href='#' data-role='button'data-iconpos='notext' data-icon='grid'>Details</a>");
+	    $el = $("<label for='widget" + counter + "'>Checkbox " + counter + "</label><input type='checkbox' id='widget" + counter + "'></input>");
+	    $("#my-controlgroup").controlgroup("container")["append"]($el);
+// 	    $el.button();
+	    $el.checkboxradio();
+	    $("#my-controlgroup").controlgroup("refresh");
+	});
+
+	</script>
+
+</body>
+</html>
