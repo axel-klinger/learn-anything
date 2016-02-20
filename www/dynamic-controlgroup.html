@@ -18,6 +18,7 @@
         <label for='widget1'>Checkbox 1</label><input type='checkbox' id='widget1'></input>
     </div>
     <button id="app" data-role="button" data-mini="true" data-inline="true">Append</button>
+    <button id="clean" data-role="button" data-mini="true" data-inline="true">Clean</button>
 
 
 	<script type="text/javascript">
@@ -33,6 +34,10 @@
 	    $("#my-controlgroup").controlgroup("refresh");
 	});
 
+	$("#clean").on("click", function () {
+		$("#my-controlgroup").controlgroup("container").empty();
+	    $("#my-controlgroup").controlgroup("refresh");
+	});
 	</script>
 
 </body>
