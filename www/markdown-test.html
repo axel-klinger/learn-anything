@@ -24,13 +24,14 @@
 		<div id="edit-head" data-role="header">
 			<a href="#view" class="ui-btn-left" data-transition="none">View</a>
 			<h1>Edit</h1>
+			<a href="#view" name="edit-submit" id="edit-submit" class="ui-btn-right" data-transition="none">Save</a>
 		</div>
 		<form>
 			<label for="edit-title" class="ui-hidden-accessible">Unit title</label>
 			<input type="text" name="edit-title" id="edit-title" data-clear-btn="true" placeholder="Title ...">
 			<label for="edit-summary" class="ui-hidden-accessible">Unit summary</label>
 			<textarea name="edit-summary" id="edit-summary" placeholder="Summary ..."></textarea>
-			<input type="button" name="edit-submit" id="edit-submit" value="Save">
+<!-- 			<input type="button" name="edit-submit" id="edit-submit" value="Save"> -->
 		</form>
 	</div>
 
@@ -64,6 +65,7 @@
 
 		function renderText(text) {
 			var result = text;
+			result = result.replace(/###([^\n]+)/g,'<h3>$1</h3>');
 			result = result.replace(/##([^\n]+)/g,'<h2>$1</h2>');
 			result = result.replace(/#([^\n]+)/g,'<h1>$1</h1>');
 			result = result.replace(/\n([^\n]+\n)/g,'<p>$1</p>');
